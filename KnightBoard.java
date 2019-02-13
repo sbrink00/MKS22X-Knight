@@ -2,12 +2,33 @@ public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
     System.out.println(k);
+    k.addKnight(-1, -1, 24);
+    k.addKnight(5, 5, 24);
+    k.addKnight(-1, -1, 24);
+    k.addKnight(5, 2, 24);
+    k.addKnight(2, 5, 24);
+    k.addKnight(4, 4, 24);
+    System.out.println(k);
   }
 
   private int[][] board;
 
   public KnightBoard(int startingRows, int startingCols){
     board = new int[startingRows][startingCols];
+  }
+
+  private boolean addKnight(int r, int c, int num){
+    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
+    if (board[r][c] != 0) return false;
+    board[r][c] = num;
+    return true;
+  }
+
+  private boolean removeKnight(int r, int c){
+    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
+    if (board[r][c] == 0) return false;
+    board[r][c] = 0;
+    return true;
   }
 
   public String toString(){
