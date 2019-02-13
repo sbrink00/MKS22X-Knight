@@ -17,6 +17,13 @@ public class KnightBoard{
     board = new int[startingRows][startingCols];
   }
 
+  private boolean solveHelper(int num){
+    if (num == board.length * board[0].length) return true;
+    else{
+      return 
+    }
+  }
+
   private boolean addKnight(int r, int c, int num){
     if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
     if (board[r][c] != 0) return false;
