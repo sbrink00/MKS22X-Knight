@@ -1,26 +1,42 @@
 public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
-    System.out.println(k);
+    //System.out.println(k);
     k.addKnight(-1, -1, 24);
     k.addKnight(5, 5, 24);
     k.addKnight(-1, -1, 24);
     k.addKnight(5, 2, 24);
     k.addKnight(2, 5, 24);
     k.addKnight(4, 4, 24);
-    System.out.println(k);
+    //System.out.println(k);
+    System.out.println(k.movesToString());
   }
 
   private int[][] board;
+  private int[][] moves;
+
 
   public KnightBoard(int startingRows, int startingCols){
     board = new int[startingRows][startingCols];
+    initializeMoves();
+  }
+
+  private void initializeMoves(){
+    moves = new  int[8][2];
+    moves[0] = new int[]{2, 1};
+    moves[1] = new int[]{2, -1};
+    moves[2] = new int[]{-2, 1};
+    moves[3] = new int[]{-2, -1};
+    moves[4] = new int[]{1, -2};
+    moves[5] = new int[]{1, 2};
+    moves[6] = new int[]{-1, -2};
+    moves[7] = new int[]{-1, 2};
   }
 
   private boolean solveHelper(int num){
     if (num == board.length * board[0].length) return true;
     else{
-      return 
+      return false;
     }
   }
 
@@ -50,6 +66,14 @@ public class KnightBoard{
       output += "\n";
     }
     return output;
+  }
+
+  public String movesToString(){
+    String output = "[";
+    for (int idx = 0; idx < moves.length; idx ++){
+      output += "[" + moves[idx][0] + ", " + moves[idx][1] + "], ";
+    }
+    return output.substring(0, output.length() - 2) + "]";
   }
 
 }
