@@ -2,7 +2,7 @@ public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(3, 3);
     System.out.println(k);
-    k.solveHelper(0, 0, 0);
+    k.solveHelper(1, 0, 0);
     System.out.println(k);
     //System.out.println(k.movesToString());
   }
