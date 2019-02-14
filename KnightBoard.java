@@ -1,15 +1,10 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(5, 5);
-    //System.out.println(k);
-    k.addKnight(-1, -1, 24);
-    k.addKnight(5, 5, 24);
-    k.addKnight(-1, -1, 24);
-    k.addKnight(5, 2, 24);
-    k.addKnight(2, 5, 24);
-    k.addKnight(4, 4, 24);
-    //System.out.println(k);
-    System.out.println(k.movesToString());
+    KnightBoard k = new KnightBoard(3, 3);
+    System.out.println(k);
+    k.solveHelper(0, 0, 0);
+    System.out.println(k);
+    //System.out.println(k.movesToString());
   }
 
   private int[][] board;
@@ -33,11 +28,18 @@ public class KnightBoard{
     moves[7] = new int[]{-1, 2};
   }
 
-  private boolean solveHelper(int num){
+  private boolean solveHelper(int num, int r, int c){
     if (num == board.length * board[0].length) return true;
     else{
-      return false;
+      for (int idx = 0; idx < moves.length; idx ++){
+        if (addKnight(num, r + moves[idx][0], c + moves[idx][1])){
+          if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
+          removeKnight(r + moves[idx][0], c + moves[idx][1]);
+        }
+        System.out.println(toString());
+      }
     }
+    return false;
   }
 
   private boolean addKnight(int r, int c, int num){
