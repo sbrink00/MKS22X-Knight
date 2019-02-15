@@ -1,8 +1,8 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(3, 3);
+    KnightBoard k = new KnightBoard(5, 5);
     System.out.println(k);
-    k.solveHelper(1, 0, 0);
+    k.solveHelper(1, 2, 3);
     System.out.println(k);
     //System.out.println(k.movesToString());
   }
@@ -32,7 +32,7 @@ public class KnightBoard{
     if (num == board.length * board[0].length) return true;
     else{
       for (int idx = 0; idx < moves.length; idx ++){
-        if (addKnight(num, r + moves[idx][0], c + moves[idx][1])){
+        if (addKnight(r + moves[idx][0], c + moves[idx][1], num)){
           if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
           removeKnight(r + moves[idx][0], c + moves[idx][1]);
         }
