@@ -1,15 +1,16 @@
 public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
-    System.out.println(k.whereToGoToString());
-    k.addKnight(2, 2, 5);
+    //System.out.println(k.whereToGoToString());
+    k.addKnight(1, 1, 5);
+    k.adjustOptimizedMoves();
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
     //System.out.println(k.countSolutionsHelper(1, 0, 4));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
-    System.out.println(k.whereToGoToString());
+    //System.out.println(k.whereToGoToString());
     k.removeKnight(2, 2);
     System.out.println(k.whereToGoToString());
     //System.out.println(k.isASquare(4, 10));
@@ -125,11 +126,26 @@ public class KnightBoard{
   private void adjustOptimizedMoves(int r, int c){
     for (int idx = 0; idx < optimizedMoves.length; idx ++){
       if (isASquare(r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])){
-        optimizedMoves[idx][2] = whereToGo(r + optimizedMoves[idx][0], c + optimizedMoves[idx][1]);
+        optimizedMoves[idx][2] = whereToGo[r + optimizedMoves[idx][0]][c + optimizedMoves[idx][1]];
       }
-      else optimizedMoves[idx][2] = -1
+      else optimizedMoves[idx][2] = -1;
+    }
+    sortOptimizedMoves();
+  }
+
+  private void sortOptimizedMoves(){
+    for (int idx = 1; idx < optimizedMoves.length; idx ++){
+      int[] containsVal = optimizedMoves[idx];
+      int val = optimizedMoves[idx][2];
+      int i = idx - 1;
+      for (;i > 0 && optimizedMoves[i][2] > val; i--){
+        optimizedMoves[i + 1] = optimizedMoves[i];
+      }
+      optimizedMoves[i + 1] = optimizedMoves[idx];
     }
   }
+
+
 
   private boolean addKnight(int r, int c, int num){
     if (!isASquare(r, c)) return false;
@@ -172,6 +188,8 @@ public class KnightBoard{
     }
     return output.substring(0, output.length() - 2) + "]";
   }
+
+  
 
   public String whereToGoToString(){
     String output = "";
