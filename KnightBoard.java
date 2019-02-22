@@ -44,11 +44,14 @@ public class KnightBoard{
     if (num == board.length * board[0].length + 1) return 1;
     int total = 0;
     if (addKnight(r, c, num)){
-      for (int idx = 0; idx < moves.length; idx ++){
-        total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
-      removeKnight(r, c);
+      if (num == board.length * board[0].length) total ++;
+      else{
+        for (int idx = 0; idx < moves.length; idx ++){
+          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
       }
-    return total / 8;
+      removeKnight(r, c);
+    }
+    return total;
     }
 
 
