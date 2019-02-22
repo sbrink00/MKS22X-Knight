@@ -1,13 +1,14 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(8, 8);
+    KnightBoard k = new KnightBoard(5, 10);
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
     //System.out.println(k.countSolutionsHelper(1, 0, 0));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
-    System.out.println(k.whereToGoToString());
+    //System.out.println(k.whereToGoToString());
+    System.out.println(k.isASquare(4, 10));
   }
 
   private int[][] board;
