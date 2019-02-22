@@ -1,12 +1,13 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(5, 5);
+    KnightBoard k = new KnightBoard(8, 8);
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
-    System.out.println(k.countSolutionsHelper(1, 0, 0));
+    //System.out.println(k.countSolutionsHelper(1, 0, 0));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
+    System.out.println(k.whereToGoToString());
   }
 
   private int[][] board;
@@ -35,7 +36,7 @@ public class KnightBoard{
   public void initializeWhereToGo(){
     whereToGo = new int[board.length][board[0].length];
     for (int idx = 0; idx < whereToGo.length; idx ++){
-      for (int idx2 = 0; idx2 < whereToGo[0].length; idx ++){
+      for (int idx2 = 0; idx2 < whereToGo[0].length; idx2 ++){
         for (int idx3 = 0; idx3 < moves.length; idx3 ++){
           if (idx >= 0 && idx < board.length && idx2 >= 0 && idx2 < board[0].length){
             whereToGo[idx][idx2] ++;
@@ -135,6 +136,17 @@ public class KnightBoard{
       output += "[" + moves[idx][0] + ", " + moves[idx][1] + "], ";
     }
     return output.substring(0, output.length() - 2) + "]";
+  }
+
+  public String whereToGoToString(){
+    String output = "";
+    for (int idx = 0; idx < whereToGo.length; idx ++){
+      for (int idx2 = 0; idx2 < whereToGo[0].length; idx2 ++){
+        output += whereToGo[idx][idx2] + " ";
+      }
+      output += "\n";
+    }
+    return output;
   }
 
 }
