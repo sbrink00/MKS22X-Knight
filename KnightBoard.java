@@ -1,10 +1,10 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(8, 8);
+    KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k);
-    System.out.println(k.solveHelper(1, 0, 0));
+    //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
-    System.out.println(k);
+    System.out.println(k.countSolutionsHelper(1, 0, 0));
     //System.out.println(k.movesToString());
   }
 
@@ -31,7 +31,17 @@ public class KnightBoard{
 
   //public int countSolutions(){}
 
-  //public int countSolutionsHelper()
+  public int countSolutionsHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return 1;
+    int total = 0;
+    if (addKnight(r, c, num)){
+      for (int idx = 0; idx < moves.length; idx ++){
+        total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
+      removeKnight(r, c);
+      }
+    return total;
+    }
+
 
   public boolean solve(){
     for (int idx = 0; idx < board.length; idx ++){
