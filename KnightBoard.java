@@ -11,11 +11,13 @@ public class KnightBoard{
 
   private int[][] board;
   private int[][] moves;
+  private int[][] whereToGo;
 
 
   public KnightBoard(int startingRows, int startingCols){
     board = new int[startingRows][startingCols];
     initializeMoves();
+    initializeWhereToGo();
   }
 
   private void initializeMoves(){
@@ -28,6 +30,19 @@ public class KnightBoard{
     moves[5] = new int[]{1, 2};
     moves[6] = new int[]{-1, -2};
     moves[7] = new int[]{-1, 2};
+  }
+
+  public void initializeWhereToGo(){
+    whereToGo = new int[board.length][board[0].length];
+    for (int idx = 0; idx < whereToGo.length; idx ++){
+      for (int idx2 = 0; idx2 < whereToGo[0].length; idx ++){
+        for (int idx3 = 0; idx3 < moves.length; idx3 ++){
+          if (idx >= 0 && idx < board.length && idx2 >= 0 && idx2 < board[0].length){
+            whereToGo[idx][idx2] ++;
+          }
+        }
+      }
+    }
   }
 
   public int countSolutions(){
