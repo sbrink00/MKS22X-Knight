@@ -56,7 +56,7 @@ public class KnightBoard{
     for (int idx = 0; idx < moves.length; idx ++){
       optimizedMoves[idx][0] = moves[idx][0];
       optimizedMoves[idx][1] = moves[idx][1];
-      optimizedMoves[idx][2] = -1;
+      optimizedMoves[idx][2] = 0;
     }
   }
 
@@ -115,10 +115,19 @@ public class KnightBoard{
     return false;
   }
 
-  public void adjustWhereToGo(int r, int c, int increment){
+  private void adjustWhereToGo(int r, int c, int increment){
     for (int idx = 0; idx < moves.length; idx ++){
       if (isASquare(r + moves[idx][0], c + moves[idx][1])){
         whereToGo[r + moves[idx][0]][c + moves[idx][1]] += increment;}
+    }
+  }
+
+  private void adjustOptimizedMoves(int r, int c){
+    for (int idx = 0; idx < optimizedMoves.length; idx ++){
+      if (isASquare(r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])){
+        optimizedMoves[idx][2] = whereToGo(r + optimizedMoves[idx][0], c + optimizedMoves[idx][1]);
+      }
+      else optimizedMoves[idx][2] = -1
     }
   }
 
