@@ -100,9 +100,12 @@ public class KnightBoard{
     return false;
   }
 
-  //public void adjustWhereToGo(int r, int c){
-    //for
-  //}
+  public void adjustWhereToGo(int r, int c){
+    for (int idx = 0; idx < moves.length; idx ++){
+      if (isASquare(r + moves[idx][0], c + moves[idx][1])){
+        whereToGo[r + moves[idx][0]][c + moves[idx][1]] --;}
+    }
+  }
 
   private boolean addKnight(int r, int c, int num){
     if (!isASquare(r, c)) return false;
