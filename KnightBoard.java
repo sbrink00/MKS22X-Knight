@@ -38,9 +38,11 @@ public class KnightBoard{
     for (int idx = 0; idx < whereToGo.length; idx ++){
       for (int idx2 = 0; idx2 < whereToGo[0].length; idx2 ++){
         for (int idx3 = 0; idx3 < moves.length; idx3 ++){
-          if (idx >= 0 && idx < board.length && idx2 >= 0 && idx2 < board[0].length){
-            whereToGo[idx][idx2] ++;
-          }
+          if (idx + moves[idx3][0] >= 0 &&
+              idx + moves[idx3][0] < whereToGo.length &&
+              idx2 + moves[idx3][1] >= 0 &&
+              idx2 + moves[idx3][1] < whereToGo[0].length){
+              whereToGo[idx][idx2] ++;}
         }
       }
     }
