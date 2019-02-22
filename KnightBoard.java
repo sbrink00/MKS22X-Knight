@@ -131,7 +131,7 @@ public class KnightBoard{
       }
       else optimizedMoves[idx][2] = -1;
     }
-    //sortOptimizedMoves();
+    sortOptimizedMoves();
   }
 
   private void sortOptimizedMoves(){
@@ -139,7 +139,7 @@ public class KnightBoard{
       int[] containsVal = optimizedMoves[idx];
       int val = optimizedMoves[idx][2];
       int i = idx - 1;
-      for (;i > 0 && optimizedMoves[i][2] > val; i--){
+      for (;i > 0 && optimizedMoves[i][2] < val; i--){
         optimizedMoves[i + 1] = optimizedMoves[i];
       }
       optimizedMoves[i + 1] = optimizedMoves[idx];
