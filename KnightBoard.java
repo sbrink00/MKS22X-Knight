@@ -2,18 +2,18 @@ public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k.whereToGoToString());
-    k.addKnight(0, 1, 7);
-    k.adjustOptimizedMoves(0, 1);
-    System.out.println(k.optimizedMovesToStringg());
-    //System.out.println(k);
+    //k.addKnight(0, 1, 7);
+    //k.adjustOptimizedMoves(0, 1);
+    //System.out.println(k.optimizedMovesToStringg());
     //System.out.println(k.solveHelper(1, 0, 0));
-    //k.solve();
+    k.solve();
+    System.out.println(k);
     //System.out.println(k.countSolutionsHelper(1, 0, 4));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
     //System.out.println(k.whereToGoToString());
     //k.removeKnight(2, 2);
-    System.out.println(k.whereToGoToString());
+    //System.out.println(k.whereToGoToString());
     //System.out.println(k.isASquare(4, 10));
   }
 
@@ -113,7 +113,7 @@ public class KnightBoard{
       adjustOptimizedMoves(r, c);
       for (int idx = 0; idx < optimizedMoves.length; idx ++){
         if (optimizedMoves[idx][2] != -1){
-          if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
+          if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
         }
       }
       removeKnight(r, c);
