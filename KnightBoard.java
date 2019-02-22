@@ -10,6 +10,8 @@ public class KnightBoard{
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
     System.out.println(k.whereToGoToString());
+    k.removeKnight(2, 2);
+    System.out.println(k.whereToGoToString());
     //System.out.println(k.isASquare(4, 10));
   }
 
