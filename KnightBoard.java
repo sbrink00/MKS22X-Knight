@@ -1,14 +1,15 @@
 public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
-    k.addKnight
+    System.out.println(k.whereToGoToString());
+    k.addKnight(2, 2, 5);
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
     //System.out.println(k.countSolutionsHelper(1, 0, 4));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
-    //System.out.println(k.whereToGoToString());
+    System.out.println(k.whereToGoToString());
     //System.out.println(k.isASquare(4, 10));
   }
 
@@ -112,6 +113,7 @@ public class KnightBoard{
     if (!isASquare(r, c)) return false;
     if (board[r][c] != 0) return false;
     board[r][c] = num;
+    adjustWhereToGo(r, c, -1);
     return true;
   }
 
@@ -119,6 +121,7 @@ public class KnightBoard{
     if (!isASquare(r, c)) return false;
     if (board[r][c] == 0) return false;
     board[r][c] = 0;
+    adjustWhereToGo(r, c, 1);
     return true;
   }
 
