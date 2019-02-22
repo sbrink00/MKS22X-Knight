@@ -1,6 +1,6 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(5, 5);
+    KnightBoard k = new KnightBoard(95, 95);
     //System.out.println(k.whereToGoToString());
     //k.addKnight(0, 1, 7);
     //k.adjustOptimizedMoves(0, 1);
