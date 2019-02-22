@@ -1,6 +1,7 @@
 public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
+    k.addKnight
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
@@ -100,10 +101,10 @@ public class KnightBoard{
     return false;
   }
 
-  public void adjustWhereToGo(int r, int c){
+  public void adjustWhereToGo(int r, int c, int increment){
     for (int idx = 0; idx < moves.length; idx ++){
       if (isASquare(r + moves[idx][0], c + moves[idx][1])){
-        whereToGo[r + moves[idx][0]][c + moves[idx][1]] --;}
+        whereToGo[r + moves[idx][0]][c + moves[idx][1]] += increment;}
     }
   }
 
