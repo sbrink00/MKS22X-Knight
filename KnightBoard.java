@@ -1,8 +1,9 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(5, 5);
-    System.out.println(k);
-    k.solveHelper(1, 0, 0);
+    KnightBoard k = new KnightBoard(8, 8);
+    //System.out.println(k);
+    System.out.println(k.solveHelper(1, 0, 0));
+    //k.solve();
     System.out.println(k);
     //System.out.println(k.movesToString());
   }
@@ -28,16 +29,37 @@ public class KnightBoard{
     moves[7] = new int[]{-1, 2};
   }
 
-  private boolean solveHelper(int num, int r, int c){
-    if (num == board.length * board[0].length) return true;
-    else{
-      for (int idx = 0; idx < moves.length; idx ++){
-        if (addKnight(r + moves[idx][0], c + moves[idx][1], num)){
-          if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
-          removeKnight(r + moves[idx][0], c + moves[idx][1]);
-        }
-        System.out.println(toString());
+  //public int countSolutions(){}
+
+  //public int countSolutionsHelper()
+
+  public boolean solve(){
+    for (int idx = 0; idx < board.length; idx ++){
+      for (int idx2 = 0; idx2 < board[0].length; idx ++){
+        if (solveHelper(1, idx, idx2)) return true;
       }
+    }
+    return false;
+  }
+
+  /*private boolean solveHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return true;
+    addKnight(r, c, num);
+    for (int idx = 0; idx < moves.length; idx ++){
+      if (addKnight(r + moves[idx][0], c + moves[idx][1], num)){
+        if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
+        removeKnight(r + moves[idx][0], c + moves[idx][1]);
+      }
+    }
+    return false;
+  }*/
+
+  private boolean solveHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return true;
+    if (addKnight(r, c, num)){
+      for (int idx = 0; idx < moves.length; idx ++){
+        if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;}
+      removeKnight(r, c);
     }
     return false;
   }
