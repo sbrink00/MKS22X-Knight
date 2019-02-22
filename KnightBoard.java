@@ -18,12 +18,14 @@ public class KnightBoard{
   private int[][] board;
   private int[][] moves;
   private int[][] whereToGo;
+  private int[][] optimizedMoves;
 
 
   public KnightBoard(int startingRows, int startingCols){
     board = new int[startingRows][startingCols];
     initializeMoves();
     initializeWhereToGo();
+    initializeOptimizedMoves();
   }
 
   private void initializeMoves(){
@@ -38,7 +40,7 @@ public class KnightBoard{
     moves[7] = new int[]{-1, 2};
   }
 
-  public void initializeWhereToGo(){
+  private void initializeWhereToGo(){
     whereToGo = new int[board.length][board[0].length];
     for (int idx = 0; idx < whereToGo.length; idx ++){
       for (int idx2 = 0; idx2 < whereToGo[0].length; idx2 ++){
@@ -46,6 +48,15 @@ public class KnightBoard{
           if (isASquare(idx + moves[idx3][0], idx2 + moves[idx3][1])) whereToGo[idx][idx2] ++;
         }
       }
+    }
+  }
+
+  private void initializeOptimizedMoves(){
+    optimizedMoves = new int[8][3];
+    for (int idx = 0; idx < moves.length; idx ++){
+      optimizedMoves[idx][0] = moves[idx][0];
+      optimizedMoves[idx][1] = moves[idx][1];
+      optimizedMoves[idx][2] = -1;
     }
   }
 
