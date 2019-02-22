@@ -58,21 +58,6 @@ public class KnightBoard{
     return total;
   }
 
-  public int countSolutionsHelper(int num, int r, int c){
-    if (num == board.length * board[0].length + 1) return 1;
-    int total = 0;
-    if (addKnight(r, c, num)){
-      if (num == board.length * board[0].length) total ++;
-      else{
-        for (int idx = 0; idx < moves.length; idx ++){
-          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
-      }
-      removeKnight(r, c);
-    }
-    return total;
-    }
-
-
   public boolean solve(){
     for (int idx = 0; idx < board.length; idx ++){
       for (int idx2 = 0; idx2 < board[0].length; idx ++){
@@ -94,6 +79,20 @@ public class KnightBoard{
     return false;
   }*/
 
+  public int countSolutionsHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return 1;
+    int total = 0;
+    if (addKnight(r, c, num)){
+      if (num == board.length * board[0].length) total ++;
+      else{
+        for (int idx = 0; idx < moves.length; idx ++){
+          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
+      }
+      removeKnight(r, c);
+    }
+    return total;
+    }
+
   private boolean solveHelper(int num, int r, int c){
     if (num == board.length * board[0].length + 1) return true;
     if (addKnight(r, c, num)){
@@ -103,6 +102,10 @@ public class KnightBoard{
     }
     return false;
   }
+
+  //public void adjustWhereToGo(int r, int c){
+    //for
+  //}
 
   private boolean addKnight(int r, int c, int num){
     if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
@@ -116,6 +119,10 @@ public class KnightBoard{
     if (board[r][c] == 0) return false;
     board[r][c] = 0;
     return true;
+  }
+
+  private boolean isASquare(int r, int c){
+    return r >= 0 && c >= 0 && r < board.length && c < board[0].length;
   }
 
   public String toString(){
