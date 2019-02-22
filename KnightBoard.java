@@ -110,8 +110,12 @@ public class KnightBoard{
   private boolean solveHelper(int num, int r, int c){
     if (num == board.length * board[0].length + 1) return true;
     if (addKnight(r, c, num)){
-      for (int idx = 0; idx < moves.length; idx ++){
-        if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;}
+      adjustOptimizedMoves(r, c);
+      for (int idx = 0; idx < optimizedMoves.length; idx ++){
+        if (optimizedMoves[idx][2] != -1){
+          if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
+        }
+      }
       removeKnight(r, c);
     }
     return false;
