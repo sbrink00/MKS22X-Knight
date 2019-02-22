@@ -2,8 +2,8 @@ public class KnightBoard{
   public static void main(String[]args){
     KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k.whereToGoToString());
-    k.addKnight(1, 1, 7);
-    k.adjustOptimizedMoves(1, 1);
+    k.addKnight(0, 1, 7);
+    k.adjustOptimizedMoves(0, 1);
     System.out.println(k.optimizedMovesToStringg());
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
@@ -135,14 +135,14 @@ public class KnightBoard{
   }
 
   private void sortOptimizedMoves(){
-    for (int idx = 1; idx < optimizedMoves.length; idx ++){
-      int[] containsVal = optimizedMoves[idx];
-      int val = optimizedMoves[idx][2];
-      int i = idx - 1;
-      for (;i > 0 && optimizedMoves[i][2] < val; i--){
-        optimizedMoves[i + 1] = optimizedMoves[i];
+    for (int idx = 0; idx < optimizedMoves.length; idx ++){
+      int index = idx;
+      for (int idx2 = idx; idx2 < optimizedMoves.length; idx2 ++){
+        if (optimizedMoves[idx2][2] < optimizedMoves[index][2]) index = idx2;
       }
-      optimizedMoves[i + 1] = optimizedMoves[idx];
+      int[] change = optimizedMoves[index];
+      optimizedMoves[index] = optimizedMoves[idx];
+      optimizedMoves[idx] = change;
     }
   }
 
