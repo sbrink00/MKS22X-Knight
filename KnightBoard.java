@@ -1,14 +1,14 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(5, 10);
+    KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k);
     //System.out.println(k.solveHelper(1, 0, 0));
     //k.solve();
-    //System.out.println(k.countSolutionsHelper(1, 0, 0));
+    //System.out.println(k.countSolutionsHelper(1, 0, 4));
     //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
     //System.out.println(k.whereToGoToString());
-    System.out.println(k.isASquare(4, 10));
+    //System.out.println(k.isASquare(4, 10));
   }
 
   private int[][] board;
@@ -39,11 +39,7 @@ public class KnightBoard{
     for (int idx = 0; idx < whereToGo.length; idx ++){
       for (int idx2 = 0; idx2 < whereToGo[0].length; idx2 ++){
         for (int idx3 = 0; idx3 < moves.length; idx3 ++){
-          if (idx + moves[idx3][0] >= 0 &&
-              idx + moves[idx3][0] < whereToGo.length &&
-              idx2 + moves[idx3][1] >= 0 &&
-              idx2 + moves[idx3][1] < whereToGo[0].length){
-              whereToGo[idx][idx2] ++;}
+          if (isASquare(idx + moves[idx3][0], idx2 + moves[idx3][1])) whereToGo[idx][idx2] ++;
         }
       }
     }
@@ -109,14 +105,14 @@ public class KnightBoard{
   //}
 
   private boolean addKnight(int r, int c, int num){
-    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
+    if (!isASquare(r, c)) return false;
     if (board[r][c] != 0) return false;
     board[r][c] = num;
     return true;
   }
 
   private boolean removeKnight(int r, int c){
-    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return false;
+    if (!isASquare(r, c)) return false;
     if (board[r][c] == 0) return false;
     board[r][c] = 0;
     return true;
