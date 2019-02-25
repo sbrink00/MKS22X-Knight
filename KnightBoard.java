@@ -1,6 +1,6 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(95, 95);
+    KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k.whereToGoToString());
     //k.addKnight(0, 1, 7);
     //k.adjustOptimizedMoves(0, 1);
@@ -112,7 +112,10 @@ public class KnightBoard{
     if (addKnight(r, c, num)){
       adjustOptimizedMoves(r, c);
       for (int idx = 0; idx < optimizedMoves.length; idx ++){
-        if (optimizedMoves[idx][2] != -1){
+        //if (optimizedMoves[idx][2] == 0){// && num == board.length * board[0].length - 1){
+        //  if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;;
+        //}
+        if (optimizedMoves[idx][2] > -1){
           if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
         }
       }
