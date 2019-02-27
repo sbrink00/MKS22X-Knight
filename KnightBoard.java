@@ -1,15 +1,15 @@
 public class KnightBoard{
   public static void main(String[]args){
-    KnightBoard k = new KnightBoard(95, 95);
+    KnightBoard k = new KnightBoard(5, 5);
     //System.out.println(k.whereToGoToString());
     //k.addKnight(0, 1, 7);
     //k.adjustOptimizedMoves(0, 1);
     //System.out.println(k.optimizedMovesToStringg());
     //System.out.println(k.solveHelper(1, 0, 0));
-    k.solve();
-    System.out.println(k);
+    //k.solve();
+    //System.out.println(k);
     //System.out.println(k.countSolutionsHelper(1, 0, 4));
-    //System.out.println(k.countSolutions());
+    System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
     //System.out.println(k.whereToGoToString());
     //k.removeKnight(2, 2);
@@ -24,6 +24,7 @@ public class KnightBoard{
 
 
   public KnightBoard(int startingRows, int startingCols){
+    if (startingCols <= 0 || startingRows <= 0) throw new IllegalArgumentException("rows and columns must be greater than 0");
     board = new int[startingRows][startingCols];
     initializeMoves();
     initializeWhereToGo();
@@ -73,6 +74,7 @@ public class KnightBoard{
   }
 
   public boolean solve(){
+
     for (int idx = 0; idx < board.length; idx ++){
       for (int idx2 = 0; idx2 < board[0].length; idx ++){
         if (solveHelper(1, idx, idx2)) return true;
@@ -100,10 +102,12 @@ public class KnightBoard{
       if (num == board.length * board[0].length) total ++;
       else{
         for (int idx = 0; idx < moves.length; idx ++){
-          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);}
+          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);
+        }
       }
       removeKnight(r, c);
     }
+    System.out.println(total);
     return total;
     }
 
