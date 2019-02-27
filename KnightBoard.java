@@ -9,7 +9,7 @@ public class KnightBoard{
     //k.solve();
     //System.out.println(k);
     //System.out.println(k.countSolutionsHelper(1, 0, 4));
-    System.out.println(k.countSolutions());
+    //System.out.println(k.countSolutions());
     //System.out.println(k.movesToString());
     //System.out.println(k.whereToGoToString());
     //k.removeKnight(2, 2);
@@ -63,37 +63,18 @@ public class KnightBoard{
     }
   }
 
-  public int countSolutions(){
-    int total = 0;
-    for (int idx = 0; idx < board.length; idx ++){
-      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
-        total += countSolutionsHelper(1, idx, idx2);
-      }
-    }
-    return total;
+  public int countSolutions(int r, int c){
+    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
+    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
+    return countSolutionsHelper(1, r, c);
   }
 
   public boolean solve(int r, int c){
-
-    for (int idx = 0; idx < board.length; idx ++){
-      for (int idx2 = 0; idx2 < board[0].length; idx ++){
-        if (solveHelper(1, idx, idx2)) return true;
-      }
-    }
-    return false;
+    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
+    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
+    return solveHelper(1, r, c);
   }
 
-  /*private boolean solveHelper(int num, int r, int c){
-    if (num == board.length * board[0].length + 1) return true;
-    addKnight(r, c, num);
-    for (int idx = 0; idx < moves.length; idx ++){
-      if (addKnight(r + moves[idx][0], c + moves[idx][1], num)){
-        if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;
-        removeKnight(r + moves[idx][0], c + moves[idx][1]);
-      }
-    }
-    return false;
-  }*/
 
   public int countSolutionsHelper(int num, int r, int c){
     if (num == board.length * board[0].length + 1) return 1;
@@ -116,9 +97,6 @@ public class KnightBoard{
     if (addKnight(r, c, num)){
       adjustOptimizedMoves(r, c);
       for (int idx = 0; idx < optimizedMoves.length; idx ++){
-        //if (optimizedMoves[idx][2] == 0){// && num == board.length * board[0].length - 1){
-        //  if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;;
-        //}
         if (optimizedMoves[idx][2] > -1){
           if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
         }
