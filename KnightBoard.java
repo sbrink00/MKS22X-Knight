@@ -73,7 +73,7 @@ public class KnightBoard{
     return total;
   }
 
-  public boolean solve(){
+  public boolean solve(int r, int c){
 
     for (int idx = 0; idx < board.length; idx ++){
       for (int idx2 = 0; idx2 < board[0].length; idx ++){
@@ -177,6 +177,15 @@ public class KnightBoard{
 
   private boolean isASquare(int r, int c){
     return r >= 0 && c >= 0 && r < board.length && c < board[0].length;
+  }
+
+  public boolean throwException(){
+    for (int idx = 0; idx < board.length; idx ++){
+      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
+        if (board[idx][idx2] != 0) return true;
+      }
+    }
+    return false;
   }
 
   public String toString(){
