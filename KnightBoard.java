@@ -15,6 +15,7 @@ public class KnightBoard{
     //k.removeKnight(2, 2);
     //System.out.println(k.whereToGoToString());
     //System.out.println(k.isASquare(4, 10));
+    runTest(7);
   }
 
   private int[][] board;
@@ -63,47 +64,33 @@ public class KnightBoard{
     }
   }
 
-  public int countSolutions(int r, int c){
-    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
-    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
-    return countSolutionsHelper(1, r, c);
+  private boolean isASquare(int r, int c){
+    return r >= 0 && c >= 0 && r < board.length && c < board[0].length;
   }
 
-  public boolean solve(int r, int c){
-    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
-    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
-    return solveHelper(1, r, c);
-  }
-
-
-  public int countSolutionsHelper(int num, int r, int c){
-    if (num == board.length * board[0].length + 1) return 1;
-    int total = 0;
-    if (addKnight(r, c, num)){
-      if (num == board.length * board[0].length) total ++;
-      else{
-        for (int idx = 0; idx < moves.length; idx ++){
-          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);
-        }
+  public boolean throwException(){
+    for (int idx = 0; idx < board.length; idx ++){
+      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
+        if (board[idx][idx2] != 0) return true;
       }
-      removeKnight(r, c);
-    }
-    System.out.println(total);
-    return total;
-    }
-
-  private boolean solveHelper(int num, int r, int c){
-    if (num == board.length * board[0].length + 1) return true;
-    if (addKnight(r, c, num)){
-      adjustOptimizedMoves(r, c);
-      for (int idx = 0; idx < optimizedMoves.length; idx ++){
-        if (optimizedMoves[idx][2] > -1){
-          if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
-        }
-      }
-      removeKnight(r, c);
     }
     return false;
+  }
+
+  private boolean addKnight(int r, int c, int num){
+    if (!isASquare(r, c)) return false;
+    if (board[r][c] != 0) return false;
+    board[r][c] = num;
+    adjustWhereToGo(r, c, -1);
+    return true;
+  }
+
+  private boolean removeKnight(int r, int c){
+    if (!isASquare(r, c)) return false;
+    if (board[r][c] == 0) return false;
+    board[r][c] = 0;
+    adjustWhereToGo(r, c, 1);
+    return true;
   }
 
   private void adjustWhereToGo(int r, int c, int increment){
@@ -135,35 +122,45 @@ public class KnightBoard{
     }
   }
 
-
-
-  private boolean addKnight(int r, int c, int num){
-    if (!isASquare(r, c)) return false;
-    if (board[r][c] != 0) return false;
-    board[r][c] = num;
-    adjustWhereToGo(r, c, -1);
-    return true;
+public boolean solve(int r, int c){
+    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
+    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
+    return solveHelper(1, r, c);
   }
 
-  private boolean removeKnight(int r, int c){
-    if (!isASquare(r, c)) return false;
-    if (board[r][c] == 0) return false;
-    board[r][c] = 0;
-    adjustWhereToGo(r, c, 1);
-    return true;
-  }
-
-  private boolean isASquare(int r, int c){
-    return r >= 0 && c >= 0 && r < board.length && c < board[0].length;
-  }
-
-  public boolean throwException(){
-    for (int idx = 0; idx < board.length; idx ++){
-      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
-        if (board[idx][idx2] != 0) return true;
+  private boolean solveHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return true;
+    if (addKnight(r, c, num)){
+      adjustOptimizedMoves(r, c);
+      for (int idx = 0; idx < optimizedMoves.length; idx ++){
+        if (optimizedMoves[idx][2] > -1){
+          if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
+        }
       }
+      removeKnight(r, c);
     }
     return false;
+  }
+
+  public int countSolutions(int r, int c){
+    if (throwException()) throw new IllegalStateException("board must be empty to call this method.");
+    if (!isASquare(r, c)) throw new IllegalArgumentException("row and column must both be on the board.");
+    return countSolutionsHelper(1, r, c);
+  }
+
+  public int countSolutionsHelper(int num, int r, int c){
+    if (num == board.length * board[0].length + 1) return 1;
+    int total = 0;
+    if (addKnight(r, c, num)){
+      if (num == board.length * board[0].length) total ++;
+      else{
+        for (int idx = 0; idx < moves.length; idx ++){
+          total += countSolutionsHelper(num + 1, r + moves[idx][0], c + moves[idx][1]);
+        }
+      }
+      removeKnight(r, c);
+    }
+    return total;
   }
 
   public String toString(){
@@ -199,8 +196,6 @@ public class KnightBoard{
     return output.substring(0, output.length() - 2) + "]";
   }
 
-
-
   public String whereToGoToString(){
     String output = "";
     for (int idx = 0; idx < whereToGo.length; idx ++){
@@ -211,5 +206,34 @@ public class KnightBoard{
     }
     return output;
   }
+
+  public static void runTest(int i){
+
+  KnightBoard b;
+  int[]m =   {4,5,5,5,5};
+  int[]n =   {4,5,4,5,5};
+  int[]startx = {0,0,0,1,2};
+  int[]starty = {0,0,0,1,2};
+  int[]answers = {0,304,32,56,64};
+  if(i >= 0 ){
+    try{
+      int correct = answers[i];
+      b = new KnightBoard(m[i%m.length],n[i%m.length]);
+
+      int ans  = b.countSolutions(startx[i],starty[i]);
+
+      if(correct==ans){
+        System.out.println("PASS board size: "+m[i%m.length]+"x"+n[i%m.length]+" "+ans);
+      }else{
+        System.out.println("FAIL board size: "+m[i%m.length]+"x"+n[i%m.length]+" "+ans+" vs "+correct);
+      }
+    }catch(Exception e){
+      System.out.println("FAIL Exception case: "+i);
+
+    }
+  }
+}
+
+
 
 }
