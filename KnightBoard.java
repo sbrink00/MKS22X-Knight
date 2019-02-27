@@ -116,7 +116,10 @@ public class KnightBoard{
     if (addKnight(r, c, num)){
       adjustOptimizedMoves(r, c);
       for (int idx = 0; idx < optimizedMoves.length; idx ++){
-        if (optimizedMoves[idx][2] != -1){
+        //if (optimizedMoves[idx][2] == 0){// && num == board.length * board[0].length - 1){
+        //  if (solveHelper(num + 1, r + moves[idx][0], c + moves[idx][1])) return true;;
+        //}
+        if (optimizedMoves[idx][2] > -1){
           if (solveHelper(num + 1, r + optimizedMoves[idx][0], c + optimizedMoves[idx][1])) return true;
         }
       }
